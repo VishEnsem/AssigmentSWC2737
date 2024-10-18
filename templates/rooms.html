@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Webex Rooms</h2>
+        <ul>
+            {% for room in rooms %}
+            <li>
+                <strong>{{ room['title'] }}</strong>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('index') }}"><button>Back to Home</button></a>
+    </div>
+</body>
+</html>

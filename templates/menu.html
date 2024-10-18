@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webex Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ user_info['displayName'] }}</h2>
+        <p>Select an option from the menu:</p>
+
+        <!-- Button to test connection -->
+        <form action="{{ url_for('test_connection', access_token=access_token) }}" method="GET">
+            <button type="submit">Test Connection</button>
+        </form>
+
+        <!-- Button to show rooms -->
+        <form action="{{ url_for('rooms', access_token=access_token) }}" method="GET">
+            <button type="submit">Show Rooms</button>
+        </form>
+
+        <!-- Section to send a message to a specific room -->
+        <h3>Send a Message</h3>
+        <form action="{{ url_for('send_message', access_token=access_token) }}" method="POST">
+            <label for="room_id">Select Room:</label>
+            <select name="room_id" id="room_id" required>
+                {% if rooms %}
+                    {% for room in rooms %}
+                        <option value="{{ room['id'] }}">{{ room['title'] }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option value="">No rooms available</option>
+                {% endif %}
+            </select>
+            <textarea name="message" rows="2" placeholder="Enter your message" required></textarea>
+            <button type="submit">Send Message to Room</button>
+        </form>
+
+        <!-- Button to redirect to index (logout / reset) -->
+        <a href="{{ url_for('index') }}"><button>Logout</button></a>
+    </div>
+</body>
+</html>
